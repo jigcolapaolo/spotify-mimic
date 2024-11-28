@@ -1,7 +1,8 @@
-import { allPlaylists, songs as allSongs, songs } from "@/lib/data"
+import { allPlaylists, songs as allSongs } from "@/lib/data"
+import type { Params } from "astro"
 
 interface Props {
-    params: { id: string }
+    params: Params
     request: Request
 }
 
