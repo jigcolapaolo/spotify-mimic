@@ -58,15 +58,6 @@ export const playlists: Playlist[] = [
   {
     id: '6',
     albumId: 6,
-    title: "Like a Necessity",
-    color: colors.orange,
-    cover:
-      "https://f4.bcbits.com/img/a0363730459_16.jpg",
-    artists: ["WFS", "Nadav Cohen"],
-  },
-  {
-    id: '7',
-    albumId: 7,
     title: "Coffee Talk",
     color: colors.orange,
     cover:
@@ -330,7 +321,7 @@ export const songs: Song[] = [
   },
   {
     "id": 1,
-    "albumId": 7,
+    "albumId": 6,
     "title": "Way too Soon",
     "image": "https://i.scdn.co/image/ab67616d0000b2733e3b1e31f7be2b5241d65de2",
     "artists": ["Andrew Jeremy"],
