@@ -1,4 +1,4 @@
-import { Play, Pause } from "@/icons/PlayerIcons";
+import { Play, Pause, Prev, Next, Shuffle, Repeat } from "@/icons/PlayerIcons";
 import { usePlayerStore } from "@/store/playerStore";
 import { useEffect, useRef, useState } from "react";
 import { Slider } from "./Slider";
@@ -13,20 +13,20 @@ const CurrentSong = ({
   title: string;
   artists: string[];
 }) => {
-
-    const isPlaying = usePlayerStore((state) => state.isPlaying)
-    const currentSong = usePlayerStore((state) => state.currentSong)
+  const isPlaying = usePlayerStore((state) => state.isPlaying);
+  const currentSong = usePlayerStore((state) => state.currentSong);
 
   return (
-    <div className="flex items-center gap-5 relative overflow-hidden transition duration-1000"
+    <div
+      className="flex items-center gap-5 relative overflow-hidden transition duration-1000"
       style={{
-        opacity: currentSong.playlist ? 1 : 0 
+        opacity: currentSong.playlist ? 1 : 0,
       }}
     >
       <picture
-        style={{ 
-            animation: "discRotation 20s linear infinite",
-            animationPlayState: isPlaying ? "running" : "paused",
+        style={{
+          animation: "discRotation 20s linear infinite",
+          animationPlayState: isPlaying ? "running" : "paused",
         }}
         className="relative w-16 h-16 bg-zinc-800 rounded-full shadow-lg overflow-hidden"
       >
@@ -84,14 +84,17 @@ const VolumeControl = () => {
   );
 };
 
-const SongControl = ({ audio }: { audio: React.RefObject<HTMLAudioElement> }) => {
+const SongControl = ({
+  audio,
+}: {
+  audio: React.RefObject<HTMLAudioElement>;
+}) => {
   const [currentTime, setCurrentTime] = useState(0);
-
 
   useEffect(() => {
     audio.current?.addEventListener("timeupdate", handleTimeUpdate);
     return () => {
-        audio.current?.removeEventListener("timeupdate", handleTimeUpdate);
+      audio.current?.removeEventListener("timeupdate", handleTimeUpdate);
     };
   }, []);
 
@@ -100,18 +103,20 @@ const SongControl = ({ audio }: { audio: React.RefObject<HTMLAudioElement> }) =>
   };
 
   const formatTime = (time: number) => {
-    if (time == null || isNaN(time)) return '00:00';
+    if (time == null || isNaN(time)) return "00:00";
 
     const seconds = Math.floor(time % 60);
     const minutes = Math.floor(time / 60);
-    return `${ minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-  }
+    return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  };
 
   const duration = audio?.current?.duration ?? 0;
 
   return (
     <div className="flex gap-x-3 text-xs pt-2">
-      <span className="opacity-50 w-[50px] text-center">{formatTime(currentTime)}</span>
+      <span className="opacity-50 w-[50px] text-center">
+        {formatTime(currentTime)}
+      </span>
       <Slider
         defaultValue={[0]}
         max={audio?.current?.duration ?? 0}
@@ -119,24 +124,42 @@ const SongControl = ({ audio }: { audio: React.RefObject<HTMLAudioElement> }) =>
         value={[currentTime]}
         className="w-[400px]"
         onValueChange={(value) => {
-            (audio.current as HTMLAudioElement).currentTime = value[0];
+          (audio.current as HTMLAudioElement).currentTime = value[0];
         }}
       />
-      <span className="opacity-50 w-[50px] text-center">{formatTime(duration)}</span>
+      <span className="opacity-50 w-[50px] text-center">
+        {formatTime(duration)}
+      </span>
     </div>
   );
 };
 
 export default function Player() {
-  const { isPlaying, setIsPlaying, currentSong, volume } = usePlayerStore(
+  const { isPlaying, setIsPlaying, setCurrentSong, currentSong, volume } = usePlayerStore(
     (state) => state
   );
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     const audio = audioRef.current as HTMLAudioElement;
-    audio.onended = () => setIsPlaying(false);
-  }, []);
+    audio.onended = () => {
+      const { playlist, song, songs } = currentSong;
+      if (!playlist || !song) return;
+
+      const index = songs.indexOf(song);
+      if (index < songs.length - 1) {
+        const nextSong = songs[index + 1];
+        setCurrentSong({ ...currentSong, song: nextSong });
+      } else {
+        setIsPlaying(false);
+      }
+    };
+
+    return () => {
+      const audio = audioRef.current as HTMLAudioElement;
+      audio.onended = null;
+    };
+  }, [currentSong]);
 
   useEffect(() => {
     isPlaying ? audioRef.current?.play() : audioRef.current?.pause();
@@ -162,6 +185,28 @@ export default function Player() {
     setIsPlaying(!isPlaying);
   };
 
+  const handleClickPrev = () => {
+    const { playlist, song, songs } = currentSong;
+    if (!playlist || !song) return;
+
+    const index = songs.indexOf(song);
+    if (index > 0) {
+      const prevSong = songs[index - 1];
+      setCurrentSong({ ...currentSong, song: prevSong });
+    }
+  };
+
+  const handleClickNext = () => {
+    const { playlist, song, songs } = currentSong;
+    if (!playlist || !song) return;
+
+    const index = songs.indexOf(song);
+    if (index < songs.length - 1) {
+      const nextSong = songs[index + 1];
+      setCurrentSong({ ...currentSong, song: nextSong });
+    }
+  }
+
   return (
     <div className="flex flex-row justify-between w-full px-3 z-50">
       <div className="w-[200px]">
@@ -169,21 +214,40 @@ export default function Player() {
       </div>
       <div className="grid place-content-center gap-4 flex-1">
         <div className="flex justify-center flex-col items-center">
-          <button
-            className="bg-white rounded-full p-2 text-black"
-            onClick={handleClick}
-          >
-            {isPlaying ? <Pause /> : <Play />}
-          </button>
+          <div className="flex gap-x-4">
+            <button className="rounded-full p-1 text-zinc-300 hover:text-zinc-100 hover:scale-105">
+              <Shuffle />
+            </button>
+            <button 
+              className="rounded-full p-2 text-zinc-300 hover:text-zinc-100 hover:scale-105"
+              onClick={handleClickPrev}
+            >
+              <Prev />
+            </button>
+            <button
+              className="bg-white rounded-full p-2 text-black hover:scale-105"
+              onClick={handleClick}
+            >
+              {isPlaying ? <Pause /> : <Play />}
+            </button>
+            <button 
+              className="rounded-full p-2 text-zinc-300 hover:text-zinc-100 hover:scale-105"
+              onClick={handleClickNext}
+            >
+              <Next />
+            </button>
+            <button className="rounded-full p-1 text-zinc-300 hover:text-zinc-100 hover:scale-105">
+              <Repeat />
+            </button>
+          </div>
           <SongControl audio={audioRef} />
-            <audio ref={audioRef} />
+          <audio ref={audioRef} />
         </div>
       </div>
 
       <div className="flex justify-end items-center w-[200px]">
         <VolumeControl />
       </div>
-
     </div>
   );
 }
