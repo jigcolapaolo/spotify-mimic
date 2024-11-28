@@ -4,6 +4,7 @@ import PlayListItemCard from "@/components/PlayListItemCard.astro";
 import { allPlaylists, songs } from "@/lib/data";
 import SongsTable from "@/components/SongsTable.astro";
 import CardPlayButton from "@/components/CardPlayButton";
+import { Title } from "@/components/Title";
 
 
 const { id } = Astro.params
@@ -12,6 +13,7 @@ const playlist = allPlaylists.find(playlist => playlist.id === id)
 const playlistSongs = songs.filter(song => song.albumId === playlist?.albumId)
 
 const artistsString = playlist?.artists.join(", ")
+
 const albumTotalSeconds = playlistSongs.reduce((acc, song) => {
     const songDuration = song.duration.split(":")
     return acc + ((Number(songDuration[0]) * 60) + Number(songDuration[1]))
@@ -44,9 +46,13 @@ const darkColor = playlist?.color.dark
             <div class="flex flex-col justify-between">
                 <h2 class="flex flex-1 items-end">Playlist</h2>
                 <div>
-                    <h1 class="text-5xl font-bold block text-white">
-                        <span transition:name=`playlist ${playlist?.id} title`>{playlist?.title}</span>
-                    </h1>
+                    <div transition:name=`playlist ${id} title`>
+                        <Title 
+                            title={playlist?.title as string} 
+                            className="text-5xl font-bold block text-white"
+                            client:load
+                        />
+                    </div>
                 </div>
 
                 <div class="flex-1 flex items-end">
@@ -65,7 +71,7 @@ const darkColor = playlist?.color.dark
                 </div>
             </div>
         </header>
-        <div class="pl-6 pt-6">
+        <div class="pl-6 pt-6" transition:name={`playlist ${playlist?.id} button`}>
             <CardPlayButton id={id as string} size="large" client:load />
         </div>
 

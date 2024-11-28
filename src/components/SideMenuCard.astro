@@ -1,5 +1,8 @@
 ---
 import type { Playlist } from "@/lib/data";
+import { Title } from "./Title";
+import { VolumeFull } from "@/icons/VolumeIcons";
+import { SideMenuCardVolume } from "./SideMenuCardVolume";
 
 interface Props {
     playlist: Playlist;
@@ -15,7 +18,7 @@ const artistsString = artists.join(", ")
 
 <a 
     href={`/playlist/${id}`}
-    class="playlist-item flex relative p-2 overflow-hidden items-center gap-5 rounded-md hover:bg-zinc-500"
+    class="playlist-item flex relative p-2 overflow-hidden items-center gap-5 rounded-md hover:bg-zinc-700"
 >
     <picture class="h-12 w-12 flex-none">
         <img
@@ -26,12 +29,13 @@ const artistsString = artists.join(", ")
     </picture>
 
     <div class="flex flex-auto flex-col truncate">
-        <h4 class="text-white text-sm">
-            {title}
-        </h4>
+        <Title title={title} playlistId={id} className="text-sm" client:load />
 
         <span class="text-xs text-gray-400">
             {artistsString}
         </span>
+    </div>
+    <div>
+        <SideMenuCardVolume playlistId={id} client:visible />
     </div>
 </a>

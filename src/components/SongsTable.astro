@@ -2,6 +2,7 @@
 import { TimeIcon } from "@/icons/MusicsTableIcons";
 import { type Song } from "@/lib/data";
 import { SongPlayButton } from "./SongPlayButton";
+import { Title } from "./Title";
 
 interface Props {
     songs: Song[];
@@ -25,19 +26,14 @@ const { songs } = Astro.props;
             <tr class="text-gray-300 rounded-lg text-sm font-light hover:bg-white/10 overflow-hidden
              transition duration-300">
                 <td class="px-4 py-2 rounded-tl-lg rounded-bl-lg w-5 group relative">
-                    <span class="absolute inset-0 flex items-center justify-center opacity-100 group-hover:opacity-0 transition-opacity duration-300">
-                        {index + 1}
-                    </span>
-
                     <SongPlayButton albumId={song.albumId} songIndex={index} client:visible />
-
                 </td>
                 <td class="px-4 py-2 flex gap-3">
                     <picture class="" >
                         <img src={song.image} alt={`Cover of ${song.title}`} class="w-11 h-11" />
                     </picture>
                     <div class="flex flex-col">
-                        <h3 class="text-white text-base font-normal">{song.title}</h3>
+                        <Title title={song.title} playlistId={song.albumId.toString()} songId={song.id} className="text-base font-normal" client:load/>
                         <span>{song.artists.join(", ")}</span>
                     </div>
                 </td>

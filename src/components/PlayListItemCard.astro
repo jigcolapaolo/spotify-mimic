@@ -1,6 +1,7 @@
 ---
 import { type Playlist } from "@/lib/data";
 import CardPlayButton from "./CardPlayButton";
+import { Title } from "./Title";
 
 interface Props {
     playlist: Playlist;
@@ -12,14 +13,11 @@ const { id, cover, title, artists, color } = playlist
 const artistsString = artists.join(", ")
 ---
 
+
 <article class="group relative hover:bg-zinc-500 shadow-lg hover:shadow-xl bg-zinc-500/30 rounded-md
     transition-all duration-500">
 
-    <div class="absolute right-4 bottom-20 translate-y-4 transition-all duration-500
-        opacity-0 group-hover:translate-y-0 group-hover:opacity-100 z-10">
-        <CardPlayButton id={id} client:visible />
-    </div>
-
+        <CardPlayButton id={id} fade client:load transition:name=`playlist ${id} button`/>
     <a 
         href={`/playlist/${id}`}
         class="playlist-item transition-all duration-300 overflow-hidden flex relative 
@@ -36,9 +34,9 @@ const artistsString = artists.join(", ")
         </picture>
     
         <div class="flex flex-auto flex-col px-2">
-            <h4 class="text-white text-sm" transition:name=`playlist ${id} title`>
-                {title}
-            </h4>
+            <div transition:name=`playlist ${id} title`>
+                <Title title={title} playlistId={id} className="text-sm" client:load  />
+            </div>
     
             <span class="text-xs text-gray-400" transition:name=`playlist ${id} artists`>
                 {artistsString}
