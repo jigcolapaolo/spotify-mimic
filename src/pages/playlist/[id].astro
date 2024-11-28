@@ -12,6 +12,13 @@ const playlist = allPlaylists.find(playlist => playlist.id === id)
 const playlistSongs = songs.filter(song => song.albumId === playlist?.albumId)
 
 const artistsString = playlist?.artists.join(", ")
+const albumTotalSeconds = playlistSongs.reduce((acc, song) => {
+    const songDuration = song.duration.split(":")
+    return acc + ((Number(songDuration[0]) * 60) + Number(songDuration[1]))
+}, 0)
+const albumTotalMinutes = Math.floor(albumTotalSeconds / 60)
+const albumTotalHours = Math.floor(albumTotalSeconds / 3600)
+
 const accentColor = playlist?.color.accent
 const darkColor = playlist?.color.dark
 ---
@@ -48,7 +55,10 @@ const darkColor = playlist?.color.dark
                             <span class="text-white">{artistsString}</span>
                         </div>
                         <p class="mt-1">
-                            <span class="text-white">{playlistSongs.length} canciones</span>, 3 h aprox.
+                            <span class="text-white">
+                                {playlistSongs.length > 1 ? `${playlistSongs.length} canciones` : `${playlistSongs.length } canción`}
+                            </span>
+                            , {albumTotalMinutes > 60 ? `${albumTotalHours} h` : `${albumTotalMinutes} min`} aprox.
                         </p>
                     </div>
 
