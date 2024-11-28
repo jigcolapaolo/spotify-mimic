@@ -15,13 +15,18 @@ const CurrentSong = ({
 }) => {
 
     const isPlaying = usePlayerStore((state) => state.isPlaying)
+    const currentSong = usePlayerStore((state) => state.currentSong)
 
   return (
-    <div className="flex items-center gap-5 relative overflow-hidden">
+    <div className="flex items-center gap-5 relative overflow-hidden transition duration-1000"
+      style={{
+        opacity: currentSong.playlist ? 1 : 0 
+      }}
+    >
       <picture
         style={{ 
             animation: "discRotation 20s linear infinite",
-            animationPlayState: isPlaying ? "running" : "paused" 
+            animationPlayState: isPlaying ? "running" : "paused",
         }}
         className="relative w-16 h-16 bg-zinc-800 rounded-full shadow-lg overflow-hidden"
       >
@@ -152,13 +157,6 @@ export default function Player() {
     const audio = audioRef.current as HTMLAudioElement;
     audio.volume = volume;
   }, [volume]);
-
-  // useEffect(() => {
-  //     const audio = audioRef.current as HTMLAudioElement
-  //     audio.src = `/music/3/03.mp3`
-
-  //     audio.onended = () => setIsPlaying(false)
-  // }, [])
 
   const handleClick = () => {
     setIsPlaying(!isPlaying);
