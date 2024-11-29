@@ -14,7 +14,7 @@ const artistsString = artists.join(", ")
 ---
 
 
-<article class="group relative hover:bg-zinc-500 shadow-lg hover:shadow-xl bg-zinc-500/30 rounded-md
+<article id={`playlist ${id} index card`} class="group relative hover:bg-zinc-500 shadow-lg hover:shadow-xl bg-zinc-500/30 rounded-md
     transition-all duration-500">
 
         <CardPlayButton id={id} fade client:load transition:name=`playlist ${id} button`/>
@@ -45,4 +45,23 @@ const artistsString = artists.join(", ")
     </a>
 
 </article>
+
+<script define:vars={{id, color}}>
+    document.addEventListener("astro:page-load", () => {
+        document.querySelectorAll("article").forEach((article) => {
+            const playlistContainer = document.getElementById("playlist-container")
+    
+            article.addEventListener("mouseenter", () => {
+                if (article.id !== `playlist ${id} index card`) return
+    
+                playlistContainer.style.backgroundColor = color.dark
+                playlistContainer.classList.remove("bg-green-600")
+            })
+            article.addEventListener("mouseleave", () => {
+                playlistContainer.style.removeProperty("background-color")
+                playlistContainer.classList.add("bg-green-600")
+            })
+        })
+    })
+</script>
 
