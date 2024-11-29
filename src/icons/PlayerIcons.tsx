@@ -28,6 +28,7 @@ export const Play = ({ className }: { className?: string }) => (
 
 export const Prev = ({ className }: { className?: string }) => (
   <svg
+    className={className}
     fill="currentColor"
     role="img"
     height="16"
@@ -41,6 +42,7 @@ export const Prev = ({ className }: { className?: string }) => (
 
 export const Next = ({ className }: { className?: string }) => (
   <svg
+    className={className}
     fill="currentColor"
     role="img"
     height="16"
@@ -54,6 +56,7 @@ export const Next = ({ className }: { className?: string }) => (
 
 export const Shuffle = ({ className }: { className?: string }) => (
   <svg
+    className={className}
     fill="currentColor"
     role="img"
     height="16"
@@ -68,6 +71,7 @@ export const Shuffle = ({ className }: { className?: string }) => (
 
 export const Repeat = ({ className }: { className?: string }) => (
   <svg
+    className={className}
     fill="currentColor"
     role="img"
     height="16"

@@ -153,6 +153,7 @@ export default function Player() {
   const { isPlaying, setIsPlaying, setCurrentSong, currentSong, volume } =
     usePlayerStore((state) => state);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [isShuffleOn, setIsShuffleOn] = useState(false);
 
   useEffect(() => {
     const audio = audioRef.current as HTMLAudioElement;
@@ -161,6 +162,20 @@ export default function Player() {
       if (!playlist || !song) return;
 
       const index = songs.indexOf(song);
+
+      if (isShuffleOn) {
+
+        let randomIndex = index
+
+        while (index === randomIndex) {
+          randomIndex = Math.floor(Math.random() * songs.length);
+        }
+
+        const randomSong = songs[randomIndex];
+        setCurrentSong({ ...currentSong, song: randomSong });
+        return;
+      }
+
       if (index < songs.length - 1) {
         const nextSong = songs[index + 1];
         setCurrentSong({ ...currentSong, song: nextSong });
@@ -173,7 +188,7 @@ export default function Player() {
       const audio = audioRef.current as HTMLAudioElement;
       audio.onended = null;
     };
-  }, [currentSong]);
+  }, [currentSong, isShuffleOn]);
 
   useEffect(() => {
     isPlaying ? audioRef.current?.play() : audioRef.current?.pause();
@@ -221,6 +236,10 @@ export default function Player() {
     }
   };
 
+  const handleClickShuffle = () => {
+    setIsShuffleOn(!isShuffleOn);
+  }
+
   return (
     <div className="flex flex-row justify-between w-full px-3 z-50">
       <div className="w-[200px]">
@@ -229,8 +248,11 @@ export default function Player() {
       <div className="grid place-content-center gap-4 flex-1">
         <div className="flex justify-center flex-col items-center">
           <div className="flex gap-x-4">
-            <button className="rounded-full p-1 text-zinc-300 hover:text-zinc-100 hover:scale-105">
-              <Shuffle />
+            <button 
+              className="rounded-full p-1 text-zinc-300 hover:text-zinc-100 hover:scale-105"
+              onClick={handleClickShuffle}
+            >
+              <Shuffle className={isShuffleOn ? "text-green-500" : ""} />
             </button>
             <button
               className="rounded-full p-2 text-zinc-300 hover:text-zinc-100 hover:scale-105"
