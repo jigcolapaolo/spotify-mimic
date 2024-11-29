@@ -2,7 +2,12 @@ import { Play, Pause, Prev, Next, Shuffle, Repeat } from "@/icons/PlayerIcons";
 import { usePlayerStore } from "@/store/playerStore";
 import { useEffect, useRef, useState } from "react";
 import { Slider } from "./Slider";
-import { VolumeFull, VolumeSilenced } from "@/icons/VolumeIcons";
+import {
+  VolumeFull,
+  VolumeLow,
+  VolumeMedium,
+  VolumeSilenced,
+} from "@/icons/VolumeIcons";
 
 const CurrentSong = ({
   image,
@@ -49,7 +54,9 @@ const VolumeControl = () => {
   const setVolume = usePlayerStore((state) => state.setVolume);
   const previousVolumeRef = useRef(volume);
 
-  const isVolumeSilenced = volume < 0.1;
+  const isVolumeSilenced = volume === 0;
+  const isVolumeLow = volume < 0.4;
+  const isVolumeMedium = volume < 0.8;
 
   const handleClickVolume = () => {
     if (isVolumeSilenced) {
@@ -66,7 +73,15 @@ const VolumeControl = () => {
         onClick={handleClickVolume}
         className="text-white opacity-70 hover:opacity-100 transition"
       >
-        {isVolumeSilenced ? <VolumeSilenced /> : <VolumeFull />}
+        {isVolumeSilenced ? (
+          <VolumeSilenced />
+        ) : isVolumeLow ? (
+          <VolumeLow />
+        ) : isVolumeMedium ? (
+          <VolumeMedium />
+        ) : (
+          <VolumeFull />
+        )}
       </button>
       <Slider
         defaultValue={[100]}
@@ -135,9 +150,8 @@ const SongControl = ({
 };
 
 export default function Player() {
-  const { isPlaying, setIsPlaying, setCurrentSong, currentSong, volume } = usePlayerStore(
-    (state) => state
-  );
+  const { isPlaying, setIsPlaying, setCurrentSong, currentSong, volume } =
+    usePlayerStore((state) => state);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
@@ -205,7 +219,7 @@ export default function Player() {
       const nextSong = songs[index + 1];
       setCurrentSong({ ...currentSong, song: nextSong });
     }
-  }
+  };
 
   return (
     <div className="flex flex-row justify-between w-full px-3 z-50">
@@ -218,7 +232,7 @@ export default function Player() {
             <button className="rounded-full p-1 text-zinc-300 hover:text-zinc-100 hover:scale-105">
               <Shuffle />
             </button>
-            <button 
+            <button
               className="rounded-full p-2 text-zinc-300 hover:text-zinc-100 hover:scale-105"
               onClick={handleClickPrev}
             >
@@ -230,7 +244,7 @@ export default function Player() {
             >
               {isPlaying ? <Pause /> : <Play />}
             </button>
-            <button 
+            <button
               className="rounded-full p-2 text-zinc-300 hover:text-zinc-100 hover:scale-105"
               onClick={handleClickNext}
             >
