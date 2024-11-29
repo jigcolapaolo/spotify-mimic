@@ -154,6 +154,7 @@ export default function Player() {
     usePlayerStore((state) => state);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isShuffleOn, setIsShuffleOn] = useState(false);
+  const [isRepeatOn, setIsRepeatOn] = useState(false)
 
   useEffect(() => {
     const audio = audioRef.current as HTMLAudioElement;
@@ -162,6 +163,12 @@ export default function Player() {
       if (!playlist || !song) return;
 
       const index = songs.indexOf(song);
+
+      if (isRepeatOn) {
+        audio.currentTime = 0;
+        audio.play();
+        return;
+      }
 
       if (isShuffleOn) {
 
@@ -188,7 +195,7 @@ export default function Player() {
       const audio = audioRef.current as HTMLAudioElement;
       audio.onended = null;
     };
-  }, [currentSong, isShuffleOn]);
+  }, [currentSong, isShuffleOn, isRepeatOn]);
 
   useEffect(() => {
     isPlaying ? audioRef.current?.play() : audioRef.current?.pause();
@@ -240,6 +247,10 @@ export default function Player() {
     setIsShuffleOn(!isShuffleOn);
   }
 
+  const handleClickRepeat = () => {
+    setIsRepeatOn(!isRepeatOn)
+  }
+
   return (
     <div className="flex flex-row justify-between w-full px-3 z-50">
       <div className="w-[200px]">
@@ -272,8 +283,11 @@ export default function Player() {
             >
               <Next />
             </button>
-            <button className="rounded-full p-1 text-zinc-300 hover:text-zinc-100 hover:scale-105">
-              <Repeat />
+            <button 
+              className="rounded-full p-1 text-zinc-300 hover:text-zinc-100 hover:scale-105"
+              onClick={handleClickRepeat}
+            >
+              <Repeat className={isRepeatOn ? "text-green-500" : ""} />
             </button>
           </div>
           <SongControl audio={audioRef} />
