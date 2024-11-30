@@ -1,11 +1,11 @@
 ---
 import LibraryIcon from "@/icons/Library.astro";
 import HomeIcon from "@/icons/Home.astro";
-import SearchIcon from "@/icons/Search.astro";
 import SideMenuItem from "./SideMenuItem.astro";
 import SideMenuCard from "./SideMenuCard.astro";
 
 import { playlists } from "@/lib/data";
+import { Search } from "@/components/Search";
 
 ---
 
@@ -16,10 +16,7 @@ import { playlists } from "@/lib/data";
                 <HomeIcon />
                 Inicio
             </SideMenuItem>
-            <SideMenuItem href="/#">
-                <SearchIcon />
-                Buscar
-            </SideMenuItem>
+            <Search client:load transition:persist transition:name="search-input" />
         </ul>
     </div>
     <div class="bg-zinc-900 rounded-lg p-2 flex flex-col flex-1 min-h-0">
