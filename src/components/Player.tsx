@@ -23,17 +23,17 @@ const CurrentSong = ({
 
   return (
     <div
-      className="flex items-center gap-5 relative overflow-hidden transition duration-1000"
+      className="flex items-center h-full gap-5 relative overflow-hidden transition duration-1000"
       style={{
         opacity: currentSong.playlist ? 1 : 0,
       }}
     >
       <picture
+        className="relative w-[40%] rounded-full bg-zinc-800  shadow-lg overflow-hidden"
         style={{
           animation: "discRotation 20s linear infinite",
           animationPlayState: isPlaying ? "running" : "paused",
         }}
-        className="relative w-16 h-16 bg-zinc-800 rounded-full shadow-lg overflow-hidden"
       >
         <div className="border-2 border-zinc-800 rounded-full">
           <img src={image} alt={title} className="rounded-full" />
@@ -41,8 +41,13 @@ const CurrentSong = ({
         <div className="absolute w-3 h-3 bg-black rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
       </picture>
 
-      <div className="flex flex-col">
-        <h3 className="font-semibold text-sm block">{title}</h3>
+      <div className="flex flex-col w-[60%] min-w-[100px]">
+        <h3 className="font-semibold text-sm"
+          style={{
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "pre-wrap",
+          }}>{title}</h3>
         <span className="text-xs opacity-80">{artists?.join(", ")}</span>
       </div>
     </div>
@@ -261,7 +266,7 @@ export default function Player() {
   }
 
   return (
-    <div className="flex flex-row justify-between w-full px-3 z-50">
+    <div className="flex flex-row justify-between w-full h-full px-3 z-50">
       <div className="w-[200px]">
         <CurrentSong {...currentSong.song} />
       </div>
