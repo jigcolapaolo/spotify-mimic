@@ -223,7 +223,7 @@ export const songs: Song[] = [
   {
     "id": 5,
     "albumId": 3,
-    "title": "No more TypeScript for meeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "title": "No more TypeScript for me",
     "image": `https://f4.bcbits.com/img/a1435058381_65.jpg`,
     "artists": ["Tenno"],
     "album": "Study Session",

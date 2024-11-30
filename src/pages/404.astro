@@ -1,0 +1,39 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Página no encontrada">
+    <div class="flex items-center justify-center gap-5 h-full">
+        <div style={{
+            backgroundColor: "rgba(0, 0, 0, 0.2)",
+            padding: "2rem",
+            borderRadius: "1rem",
+        }}>
+            <h1 class="text-5xl font-extrabold">404</h1>
+            <p class="mt-2 text-lg text-gray-400">Ups... Parece que esta página no existe.</p>
+            <div class="mt-8">
+                <a href="/" class="px-5 py-3 font-medium text-green-600 rounded-md">
+                    Volver al inicio
+                </a>
+            </div>
+        </div>
+
+        <picture class="mt-5">
+            <img src="/not-found.png" alt="404" width="200" height="200" class="aspect-square" />
+        </picture>
+    </div>
+</Layout>
+
+<style>
+    a {
+        text-decoration: none;
+        color: #16a34a;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+            transform: scale(1.05);
+            color: #4ade80;
+        }
+    }
+</style>
