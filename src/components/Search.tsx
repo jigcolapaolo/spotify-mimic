@@ -7,20 +7,21 @@ export const Search = () => {
     const [search, setSearch] = useState("");
 
     useEffect(() => {
-        if (!search) return;
+
+        const url = new URL(window.location.href);
+        if (url.searchParams.has("q") && !search) {
+            navigate("/");
+            return
+        };
         
         const timeout = setTimeout(() => {
             setSearch(search);
-            navigate(`/?q=${search}`);
+            if (search) navigate(`/?q=${search}`);
         }, 500);
 
         return () => clearTimeout(timeout);
     }, [search]);
 
-    const handleClickClear = () => {
-        setSearch("");
-        navigate("/");
-    }
 
   return (
     <li>
@@ -42,7 +43,7 @@ export const Search = () => {
                         onChange={(e) => setSearch(e.target.value)}
                     />
                     <button
-                        onClick={handleClickClear} 
+                        onClick={() => setSearch("")} 
                         className="absolute right-2 top-1/2 -translate-y-1/2 bg-zinc-700/50 hover:bg-zinc-700 rounded-full  px-2"
                     >X</button>
                 </div>
