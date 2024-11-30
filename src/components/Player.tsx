@@ -105,16 +105,20 @@ const SongControl = ({
   audio: React.RefObject<HTMLAudioElement>;
 }) => {
   const [currentTime, setCurrentTime] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
     audio.current?.addEventListener("timeupdate", handleTimeUpdate);
     return () => {
       audio.current?.removeEventListener("timeupdate", handleTimeUpdate);
     };
-  }, []);
+  }, [isDragging]);
 
   const handleTimeUpdate = () => {
-    setCurrentTime(audio?.current?.currentTime ?? 0);
+    console.log(isDragging)
+    if (!isDragging) {
+      setCurrentTime(audio?.current?.currentTime ?? 0);
+    }
   };
 
   const formatTime = (time: number) => {
@@ -139,6 +143,11 @@ const SongControl = ({
         value={[currentTime]}
         className="w-[400px]"
         onValueChange={(value) => {
+          setIsDragging(true);
+          setCurrentTime(value[0]);
+        }}
+        onValueCommit={(value) => {
+          setIsDragging(false);
           (audio.current as HTMLAudioElement).currentTime = value[0];
         }}
       />
