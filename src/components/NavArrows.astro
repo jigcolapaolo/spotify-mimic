@@ -1,0 +1,16 @@
+---
+---
+
+<div class="w-fit p-2">
+    <button id="prev-button" class="bg-zinc-700/50 hover:bg-zinc-700/80 rounded-full py-1 px-2">←</button>
+</div>
+
+<script>
+import { navigate } from "astro:transitions/client"
+    document.addEventListener("astro:page-load", () => {
+        const prevButton = document.getElementById("prev-button") as HTMLButtonElement
+        prevButton.addEventListener("click", () => {
+            navigate("/");
+        })
+    })
+</script>

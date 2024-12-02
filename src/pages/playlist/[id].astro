@@ -5,6 +5,7 @@ import { allPlaylists, songs } from "@/lib/data";
 import SongsTable from "@/components/SongsTable.astro";
 import CardPlayButton from "@/components/CardPlayButton";
 import { Title } from "@/components/Title";
+import NavArrows from "@/components/NavArrows.astro";
 
 
 const { id } = Astro.params
@@ -32,8 +33,9 @@ const darkColor = playlist?.color.dark
 
         transition:name=`playlist ${id} box`    
     >
+        <NavArrows />
 
-        <header class="flex flex-row gap-8 px-6 mt-12">
+        <header class="flex flex-row gap-8 px-6 mt-8">
             <picture class="aspect-square w-52 h-52 flex-none">
                 <img
                     class="object-cover w-full h-full shadow-lg"
