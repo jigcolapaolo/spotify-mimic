@@ -68,6 +68,13 @@ const { title } = Astro.props;
         color: white;
     }
 
+	.tippy-box[data-theme~='dark'] {
+		background-color: rgb(53, 48, 47);
+		color: rgb(255, 255, 255);
+		padding: 0 10px;
+		border-radius: 5px;
+	}
+
     @font-face {
         font-family: "CircularStd";
         src: url("/fonts/CircularStd-Medium.woff2") format("woff2");

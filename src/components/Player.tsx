@@ -8,6 +8,7 @@ import {
   VolumeMedium,
   VolumeSilenced,
 } from "@/icons/VolumeIcons";
+import tippy from "tippy.js";
 
 const CurrentSong = ({
   image,
@@ -58,10 +59,23 @@ const VolumeControl = () => {
   const volume = usePlayerStore((state) => state.volume);
   const setVolume = usePlayerStore((state) => state.setVolume);
   const previousVolumeRef = useRef(volume);
+  const volumeBtnRef = useRef<HTMLButtonElement>(null);
 
   const isVolumeSilenced = volume === 0;
   const isVolumeLow = volume < 0.4;
   const isVolumeMedium = volume < 0.8;
+
+  useEffect(() => {
+    if (volumeBtnRef.current === null) return
+    const instance = tippy(volumeBtnRef.current, {
+      content: volume === 0 ? "No silenciar" : "Silenciar",
+      theme: "dark",
+    });
+
+    return () => {
+      instance.destroy();
+    };
+  }, [volume])
 
   const handleClickVolume = () => {
     if (isVolumeSilenced) {
@@ -72,11 +86,15 @@ const VolumeControl = () => {
     }
   };
 
+
+
+
   return (
     <div className="group flex justify-center gap-x-2">
       <button
         onClick={handleClickVolume}
         className="text-white opacity-70 hover:opacity-100 transition"
+        ref={volumeBtnRef}
       >
         {isVolumeSilenced ? (
           <VolumeSilenced />
@@ -170,6 +188,12 @@ export default function Player() {
   const [isShuffleOn, setIsShuffleOn] = useState(false);
   const [isRepeatOn, setIsRepeatOn] = useState(false)
 
+  const playBtnRef = useRef<HTMLButtonElement>(null);
+  const shuffleBtnRef = useRef<HTMLButtonElement>(null);
+  const repeatBtnRef = useRef<HTMLButtonElement>(null);
+  const prevBtnRef = useRef<HTMLButtonElement>(null);
+  const nextBtnRef = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
     const audio = audioRef.current as HTMLAudioElement;
     audio.onended = () => {
@@ -231,6 +255,48 @@ export default function Player() {
     audio.volume = volume;
   }, [volume]);
 
+  useEffect(() => {
+    const tooltips = [
+      {
+        ref: playBtnRef,
+        content: isPlaying ? "Pausar" : "Reproducir",
+      },
+      {
+        ref: shuffleBtnRef,
+        content: isShuffleOn ? "Desactivar Aleatorio" : "Activar Aleatorio",
+      },
+      {
+        ref: repeatBtnRef,
+        content: isRepeatOn ? "Desactivar Repetición" : "Activar Repetición",
+      },
+      {
+        ref: prevBtnRef,
+        content: "Anterior",
+      },
+      {
+        ref: nextBtnRef,
+        content: "Siguiente",
+      },
+    ];
+  
+    const instances = tooltips.map(({ ref, content }) => {
+      if (ref.current) {
+        return tippy(ref.current, {
+          content,
+          theme: "dark",
+          placement: "top",
+          delay: [500, 0],
+        });
+      }
+      return null;
+    });
+
+    return () => {
+      instances.forEach((instance) => instance?.destroy());
+    };
+  }, [isPlaying, isShuffleOn, isRepeatOn]);
+  
+
   const handleClick = () => {
     setIsPlaying(!isPlaying);
   };
@@ -276,30 +342,35 @@ export default function Player() {
             <button 
               className="rounded-full p-1 text-zinc-300 hover:text-zinc-100 hover:scale-105"
               onClick={handleClickShuffle}
+              ref={shuffleBtnRef}
             >
               <Shuffle className={isShuffleOn ? "text-green-500" : ""} />
             </button>
             <button
               className="rounded-full p-2 text-zinc-300 hover:text-zinc-100 hover:scale-105"
               onClick={handleClickPrev}
+              ref={prevBtnRef}
             >
               <Prev />
             </button>
             <button
               className="bg-white rounded-full p-2 text-black hover:scale-105"
               onClick={handleClick}
+              ref={playBtnRef}
             >
               {isPlaying ? <Pause /> : <Play />}
             </button>
             <button
               className="rounded-full p-2 text-zinc-300 hover:text-zinc-100 hover:scale-105"
               onClick={handleClickNext}
+              ref={nextBtnRef}
             >
               <Next />
             </button>
             <button 
               className="rounded-full p-1 text-zinc-300 hover:text-zinc-100 hover:scale-105"
               onClick={handleClickRepeat}
+              ref={repeatBtnRef}
             >
               <Repeat className={isRepeatOn ? "text-green-500" : ""} />
             </button>
