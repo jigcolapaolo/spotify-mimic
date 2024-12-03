@@ -298,6 +298,7 @@ export default function Player() {
   
 
   const handleClick = () => {
+    if (currentSong.playlist === null) return;
     setIsPlaying(!isPlaying);
   };
 
