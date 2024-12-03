@@ -35,8 +35,8 @@ const darkColor = playlist?.color.dark
     >
         <NavArrows />
 
-        <header class="flex flex-row gap-8 px-6 mt-8">
-            <picture class="aspect-square w-52 h-52 flex-none">
+        <header class="flex flex-col sm:flex-row gap-8 px-6 mt-8">
+            <picture class="aspect-square w-45 h-45 sm:w-52 sm:h-52 flex-none">
                 <img
                     class="object-cover w-full h-full shadow-lg"
                     src={playlist?.cover}
@@ -79,7 +79,7 @@ const darkColor = playlist?.color.dark
 
         <div class="relative z-10 px-6 pt-10"></div>
 
-        <section class="p-6">
+        <section class="p-6 px-3 md:px-6">
             <SongsTable songs={playlistSongs} />
         </section>
         <div class="background-gradient absolute inset-0 -z-10" />

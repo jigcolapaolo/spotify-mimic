@@ -22,7 +22,7 @@ export const AsideToggler = () => {
     const searchBtnText = document.getElementById("search-btn-text") as HTMLSpanElement;
 
     if (isOpen) {
-      app.style.gridTemplateColumns = "350px 1fr";
+      app.style.gridTemplateColumns = "300px 1fr";
 
       playlistToggleText.classList.remove("hidden");
       homeText.classList.remove("hidden");

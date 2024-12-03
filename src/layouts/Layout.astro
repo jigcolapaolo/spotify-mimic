@@ -23,7 +23,7 @@ const { title } = Astro.props;
 		<ViewTransitions />
 	</head>
 	<body>
-		<div id="app" class="relative h-screen p-2 gap-2">
+		<div id="app" class="relative h-screen p-2 gap-2 overflow-x-hidden">
 			<aside class="[grid-area:aside] flex flex-col min-h-0">
 				<AsideMenu />
 			</aside>
@@ -46,7 +46,7 @@ const { title } = Astro.props;
 		grid-template-areas: 
 			"aside main main"
 			"player player player";
-		grid-template-columns: 350px 1fr;
+		grid-template-columns: 300px 1fr;
 		grid-template-rows: 1fr auto;
 		transition: grid-template-columns 0.3s ease;
 	}

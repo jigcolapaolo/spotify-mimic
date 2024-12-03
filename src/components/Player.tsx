@@ -90,7 +90,7 @@ const VolumeControl = () => {
 
 
   return (
-    <div className="group flex justify-center gap-x-2">
+    <div className="group flex justify-center gap-x-2 flex-row-reverse pointer-events-none sm:flex-row sm:pointer-events-auto">
       <button
         onClick={handleClickVolume}
         className="text-white opacity-70 hover:opacity-100 transition"
@@ -111,7 +111,7 @@ const VolumeControl = () => {
         max={100}
         min={0}
         value={[volume * 100]}
-        className="w-[95px]"
+        className="w-[95px] opacity-0 sm:opacity-100"
         onValueChange={(value) => {
           const [newVolume] = value;
           const volumeValue = newVolume / 100;
@@ -164,7 +164,7 @@ const SongControl = ({
         max={audio?.current?.duration ?? 0}
         min={0}
         value={[currentTime]}
-        className="w-[400px]"
+        className="w-[100px]  md:w-[400px]"
         onValueChange={(value) => {
           setIsDragging(true);
           setCurrentTime(value[0]);
@@ -334,7 +334,7 @@ export default function Player() {
 
   return (
     <div className="flex flex-row justify-between w-full h-full px-3 z-50">
-      <div className="w-[200px]">
+      <div className="hidden md:w-[200px] md:block">
         <CurrentSong {...currentSong.song} />
       </div>
       <div className="grid place-content-center gap-4 flex-1">
@@ -381,7 +381,7 @@ export default function Player() {
         </div>
       </div>
 
-      <div className="flex justify-end items-center w-[200px]">
+      <div className="flex justify-end items-center w-[50px] md:w-[200px]">
         <VolumeControl />
       </div>
     </div>
