@@ -16,6 +16,7 @@ const artistsString = artists.join(", ")
 ---
 
 <a 
+    id={title}
     href={`/playlist/${id}`}
     class="playlist-item flex relative p-2 overflow-hidden items-center gap-5 rounded-md hover:bg-zinc-700"
 >
@@ -38,3 +39,35 @@ const artistsString = artists.join(", ")
         <SideMenuCardVolume playlistId={id} client:visible />
     </div>
 </a>
+
+<script>
+    import tippy from "tippy.js";
+  
+    const app = document.getElementById("app") as HTMLDivElement;
+    const playlistItems = document.querySelectorAll(".playlist-item");
+  
+    let tooltips: any = [];
+  
+    const updateTooltips = () => {
+      tooltips.forEach((tooltip: any) => tooltip.destroy());
+      tooltips = [];
+  
+      const contentShrink = app.style.gridTemplateColumns === "80px 1fr";
+  
+      playlistItems.forEach((item) => {
+        const tooltip = tippy(item, {
+          content: contentShrink ? item.id : "",
+          theme: "dark",
+          placement: "right",
+          delay: [500, 0],
+        });
+        tooltips.push(tooltip);
+      });
+    };
+  
+    updateTooltips();
+  
+    const observer = new MutationObserver(updateTooltips);
+    observer.observe(app, { attributes: true, attributeFilter: ["style"] });
+  </script>
+  
