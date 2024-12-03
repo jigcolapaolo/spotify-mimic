@@ -39,7 +39,7 @@ export default function CardPlayButton({
   const PlayingClass = isPlayingPlaylist ? "translate-y-0 opacity-100" : "group-hover:translate-y-0 group-hover:opacity-100";
 
   return (
-    <div className={fadeClass + " " + PlayingClass}>
+    <div className={fadeClass + " card-play-button-container " + PlayingClass}>
       <button
         className="card-play-button rounded-full bg-green-500 p-4 text-black hover:cursor-pointer
                         hover:bg-green-400 hover:scale-105 transition"

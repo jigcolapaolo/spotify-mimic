@@ -377,7 +377,7 @@ export default function Player() {
             </button>
           </div>
           <SongControl audio={audioRef} />
-          <audio ref={audioRef} />
+          <audio id="audio-player" ref={audioRef} />
         </div>
       </div>
 
