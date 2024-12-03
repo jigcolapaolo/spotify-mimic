@@ -1,30 +1,27 @@
 ---
-import LibraryIcon from "@/icons/Library.astro";
 import HomeIcon from "@/icons/Home.astro";
 import SideMenuItem from "./SideMenuItem.astro";
 import SideMenuCard from "./SideMenuCard.astro";
 
 import { playlists } from "@/lib/data";
-import { Search } from "@/components/Search";
+import { SearchBtn } from "@/components/SearchBtn";
+import { AsideToggler } from "./AsideToggler";
 
 ---
 
-<nav class="flex flex-col gap-2 flex-1 min-h-0">
+<nav class="flex flex-col gap-2 flex-1 min-h-0 relative">
     <div class="bg-zinc-900 rounded-lg p-2">
-        <ul>
-            <SideMenuItem href="/">
+        <ul class="flex flex-col items-start gap-2 cursor-pointer">
+            <SideMenuItem href="/" id="home-item">
                 <HomeIcon />
-                Inicio
+                <span id="home-text" class="truncate">Inicio</span>
             </SideMenuItem>
-            <Search client:load transition:persist transition:name="search-input" />
+            <SearchBtn client:load transition:persist transition:name="search-input" />
         </ul>
     </div>
     <div class="bg-zinc-900 rounded-lg p-2 flex flex-col flex-1 min-h-0">
-        <ul>
-            <SideMenuItem href="/">
-                <LibraryIcon />
-                Tu biblioteca
-            </SideMenuItem>
+        <ul class="flex items-center gap-2 cursor-pointer">
+            <AsideToggler client:load transition:persist transition:name="playlist-toggle" />
         </ul>
         <div class="flex-1 overflow-y-auto">
             {
@@ -34,16 +31,57 @@ import { Search } from "@/components/Search";
     </div>
 </nav>
 
-<!-- <script>
-    import tippy from "tippy.js";
+<script>
+  import tippy from "tippy.js";
+
+    const app = document.getElementById("app") as HTMLDivElement;
+    const homeItem = document.querySelector("#home-item") as HTMLLIElement;
+
+    let tooltipInstance: any;
+
+    const updateTooltip = () => {
+    if (tooltipInstance) {
+        tooltipInstance.destroy();
+    }
+
+    const content = app.style.gridTemplateColumns === "80px 1fr" ? "Inicio" : "";
+
+    tooltipInstance = tippy(homeItem, {
+        content,
+        theme: "dark",
+        placement: "right",
+        delay: [500, 0],
+    });
+    };
+
+    updateTooltip();
+
+    const observer = new MutationObserver(updateTooltip);
+    observer.observe(app, { attributes: true, attributeFilter: ["style"] });
+</script>
+
+<script is:inline>
 
     document.addEventListener("astro:page-load", () => {
-        tippy("#playlist-toggle", {
-            content: "Contraer Tu biblioteca",
-            theme: "dark",
-            placement: "top-start",
-            delay: [500, 0],
+        document.addEventListener("astro:after-swap", () => {
+            const app = document.getElementById("app");
+            const playlistToggleText = document.getElementById("playlist-toggle-text");
+            const homeText = document.getElementById("home-text");
+            const searchBtnText = document.getElementById("search-btn-text");
+
+
+            if (playlistToggleText.classList.contains("hidden")) {
+                homeText.classList.add("hidden");
+                searchBtnText.classList.add("hidden");
+                app.style.gridTemplateColumns = "80px 1fr";
+
+            } else {
+                homeText.classList.remove("hidden");
+                searchBtnText.classList.remove("hidden");
+                app.style.gridTemplateColumns = "350px 1fr";
+            }
         })
     })
-</script> -->
+
+</script>
 

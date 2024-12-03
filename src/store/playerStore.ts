@@ -9,6 +9,16 @@ interface PlayerState {
     setCurrentSong: (currentSong: any) => void;
 }
 
+interface SearchState {
+    isSearchOpen: boolean;
+    setIsSearchOpen: (isSearchOpen: boolean) => void;
+}
+
+interface TogglerState {
+    isOpen: boolean;
+    setIsOpen: (isOpen: boolean) => void;
+}
+
 export const usePlayerStore = create<PlayerState>((set) => ({
     isPlaying: false,
     currentSong: { playlist: null, song: null, songs: [] },
@@ -16,4 +26,14 @@ export const usePlayerStore = create<PlayerState>((set) => ({
     setVolume: (volume: number) => set({ volume }),
     setIsPlaying: (isPlaying: boolean) => set({ isPlaying }),
     setCurrentSong: (currentSong) => set({ currentSong }),
+}))
+
+export const useSearchStore = create<SearchState>((set) => ({
+    isSearchOpen: false,
+    setIsSearchOpen: (isSearchOpen: boolean) => set({ isSearchOpen }),
+}))
+
+export const useTogglerStore = create<TogglerState>((set) => ({
+    isOpen: false,
+    setIsOpen: (isOpen: boolean) => set({ isOpen }),
 }))
