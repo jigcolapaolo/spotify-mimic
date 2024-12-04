@@ -108,6 +108,7 @@ const VolumeControl = () => {
         )}
       </button>
       <Slider
+        id="player-volume-slider"
         defaultValue={[100]}
         max={100}
         min={0}
@@ -157,10 +158,11 @@ const SongControl = ({
 
   return (
     <div className="flex gap-x-3 text-xs pt-2">
-      <span className="opacity-50 w-[50px] text-center">
+      <span id="player-song-current-time" className="opacity-50 w-[50px] text-center">
         {formatTime(currentTime)}
       </span>
       <Slider
+        id="player-play-slider"
         defaultValue={[0]}
         max={audio?.current?.duration ?? 0}
         min={0}
@@ -175,7 +177,7 @@ const SongControl = ({
           (audio.current as HTMLAudioElement).currentTime = value[0];
         }}
       />
-      <span className="opacity-50 w-[50px] text-center">
+      <span id="player-song-duration" className="opacity-50 w-[50px] text-center">
         {formatTime(duration)}
       </span>
     </div>

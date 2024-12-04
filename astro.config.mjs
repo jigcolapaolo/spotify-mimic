@@ -11,4 +11,7 @@ import react from '@astrojs/react';
 export default defineConfig({
   integrations: [tailwind(), svelte(), react()],
   output: 'server',
+  devToolbar: {
+    enabled: false
+  }
 });
