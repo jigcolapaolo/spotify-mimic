@@ -47,7 +47,7 @@ export const SongPlayButton: React.FC<Props> = ({ albumId, songIndex }) => {
       </span>
       <button
         onClick={handleClick}
-        className="absolute inset-0 flex items-center justify-center"
+        className="song-play-button absolute inset-0 flex items-center justify-center"
       >
         {isSongPlaying ? (
           <>

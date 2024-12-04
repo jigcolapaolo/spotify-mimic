@@ -57,4 +57,5 @@ test("should go to playlist page when playlist item is clicked", async ({ page }
     await playlistLink.click();
 
     await page.waitForURL(/\/playlist\/.*/, { waitUntil: 'networkidle' });
+    
 })
