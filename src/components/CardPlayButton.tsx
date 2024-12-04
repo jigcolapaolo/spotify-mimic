@@ -1,5 +1,4 @@
 import { Pause, Play } from "@/icons/PlayerIcons";
-import { allPlaylists, songs } from "@/lib/data";
 import { usePlayerStore } from "@/store/playerStore";
 
 interface Props {

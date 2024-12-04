@@ -6,7 +6,7 @@ interface Props {
     request: Request
 }
 
-export async function GET({ params, request }: Props) {
+export async function GET({ request }: Props) {
 
     const { url } = request
     const urlObject = new URL(url)

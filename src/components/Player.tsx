@@ -244,7 +244,7 @@ export default function Player() {
 
   useEffect(() => {
     const audio = audioRef.current as HTMLAudioElement;
-    const { song, playlist, songs } = currentSong;
+    const { song, playlist } = currentSong;
     if (song) {
       const src = `/music/${playlist.id}/0${song.id}.mp3`;
       audio.src = src;

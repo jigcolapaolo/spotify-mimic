@@ -1,4 +1,3 @@
-import { VolumeFull } from "@/icons/VolumeIcons";
 import { usePlayerStore, useTogglerStore } from "@/store/playerStore";
 
 interface Props {

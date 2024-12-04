@@ -1,6 +1,6 @@
 import { LibraryIcon } from "@/icons/Library";
 import { useTogglerStore } from "@/store/playerStore";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import tippy from "tippy.js";
 
 export const AsideToggler = () => {
