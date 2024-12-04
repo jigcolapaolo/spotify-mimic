@@ -35,10 +35,37 @@ const artistsString = artists.join(", ")
             {artistsString}
         </span>
     </div>
-    <div>
-        <SideMenuCardVolume playlistId={id} client:visible />
-    </div>
+
+
+
+    <SideMenuCardVolume playlistId={id} client:visible />
+
 </a>
+
+<!-- <script>
+document.addEventListener("astro:page-load", () => {
+    const app = document.getElementById("app") as HTMLDivElement;
+    const playlistCardVolumeAnimation = document.getElementById("playlist-card-volume-animation") as HTMLDivElement;
+
+    if (!app || !playlistCardVolumeAnimation) return;
+
+    const observer = new MutationObserver(() => {
+        const asideMenuIsOpen = app.style.gridTemplateColumns === "300px 1fr";
+        if (asideMenuIsOpen) {
+            playlistCardVolumeAnimation.classList.remove("absolute", "inset-0", "flex", "items-center", "justify-center");
+        } else {
+            playlistCardVolumeAnimation.classList.add("absolute", "inset-0", "flex", "items-center", "justify-center");
+        }
+    });
+
+    // Configura el observador para escuchar cambios en los atributos
+    observer.observe(app, {
+        attributes: true, // Escucha cambios en los atributos
+        attributeFilter: ["style"], // Solo observa el atributo "style"
+    });
+});
+
+</script> -->
 
 <script>
     import tippy from "tippy.js";
@@ -69,5 +96,5 @@ const artistsString = artists.join(", ")
   
     const observer = new MutationObserver(updateTooltips);
     observer.observe(app, { attributes: true, attributeFilter: ["style"] });
-  </script>
+</script>
   

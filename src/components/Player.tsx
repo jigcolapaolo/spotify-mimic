@@ -92,6 +92,7 @@ const VolumeControl = () => {
   return (
     <div className="group flex justify-center gap-x-2 flex-row-reverse pointer-events-none sm:flex-row sm:pointer-events-auto">
       <button
+        id="player-volume-button"
         onClick={handleClickVolume}
         className="text-white opacity-70 hover:opacity-100 transition"
         ref={volumeBtnRef}
@@ -333,7 +334,7 @@ export default function Player() {
   }
 
   return (
-    <div className="flex flex-row justify-between w-full h-full px-3 z-50">
+    <div id="player-container" className="flex flex-row justify-between w-full h-full px-3 z-50">
       <div className="hidden md:w-[200px] md:block">
         <CurrentSong {...currentSong.song} />
       </div>
@@ -341,6 +342,7 @@ export default function Player() {
         <div className="flex justify-center flex-col items-center">
           <div className="flex gap-x-4">
             <button 
+              id="player-shuffle-button"
               className="rounded-full p-1 text-zinc-300 hover:text-zinc-100 hover:scale-105"
               onClick={handleClickShuffle}
               ref={shuffleBtnRef}
@@ -348,6 +350,7 @@ export default function Player() {
               <Shuffle className={isShuffleOn ? "text-green-500" : ""} />
             </button>
             <button
+              id="player-prev-button"
               className="rounded-full p-2 text-zinc-300 hover:text-zinc-100 hover:scale-105"
               onClick={handleClickPrev}
               ref={prevBtnRef}
@@ -355,6 +358,7 @@ export default function Player() {
               <Prev />
             </button>
             <button
+              id="player-play-button"
               className="bg-white rounded-full p-2 text-black hover:scale-105"
               onClick={handleClick}
               ref={playBtnRef}
@@ -362,6 +366,7 @@ export default function Player() {
               {isPlaying ? <Pause /> : <Play />}
             </button>
             <button
+              id="player-next-button"
               className="rounded-full p-2 text-zinc-300 hover:text-zinc-100 hover:scale-105"
               onClick={handleClickNext}
               ref={nextBtnRef}
@@ -369,6 +374,7 @@ export default function Player() {
               <Next />
             </button>
             <button 
+              id="player-repeat-button"
               className="rounded-full p-1 text-zinc-300 hover:text-zinc-100 hover:scale-105"
               onClick={handleClickRepeat}
               ref={repeatBtnRef}
