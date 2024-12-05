@@ -1,54 +1,65 @@
-# Astro Starter Kit: Basics
+# Spotify Mimic <img src="https://github.com/user-attachments/assets/f1d078b1-2633-4208-a895-c16d41636ac2" alt="Spotify Mimic Logo" width="50" height="50" />
+<br>
 
-```sh
-npm create astro@latest -- --template basics
-```
+Spotify Mimic es una aplicación desarrollada en Astro inspirada en las funcionalidades básicas de Spotify, empezado como práctica de Astro gracias al video del clon de Spotify de Midudev.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## 🚀 Nuevas Características
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- Botones para **Selección Aleatoria** de canciones, **Anterior y Siguiente canción** y **Repetición** de la ultima canción.
+- Barra de búsqueda para filtrar por álbum.
+- Portada de álbum de la canción actual con forma de dísco y animación según este reproduciendose.
+- Cambio de fondo según se haga hover en algún álbum.
+- Iconos dinámicos y animados para canción y álbum en reproducción.
+- Toggler para el menú Aside.
+- Nueva página de error 404.
+- Tooltips para los iconos.
+- Flecha para regresar a Home al clickear en un álbum.
+- Diseño responsivo.
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+## 🛠️ Tecnologías Utilizadas
 
-## 🚀 Project Structure
+- **Framework:** Astro
+- **Librerías de UI:** React y Svelte
+- **Lenguaje:** TypeScript
+- **Estilos:** CSS y Tailwind
+- **Testing:** Playwright (end-to-end)
 
-Inside of your Astro project, you'll see the following folders and files:
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## 📚 Instalación y Configuración
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Para instalar y ejecutar el proyecto en tu entorno local:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+### Clonar el repositorio
 
-Any static assets, like images, can be placed in the `public/` directory.
+````
+git clone https://github.com/jigcolapaolo/spotify-mimic.git
+````
 
-## 🧞 Commands
+## 🧞 Comandos de Astro
 
-All commands are run from the root of the project, from a terminal:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+| Command                   | Action                                              |
+| :------------------------ | :-----------------------------------------------    |
+| `npm install`             | Instala dependencias                                |
+| `npm run dev`             | Inicial el local dev server en `localhost:4321`     |
+| `npm run build`           | Build de la app en produccion en `./dist/`          |
+| `npm run preview`         | Preview de la build localmente, antes del deploy    |
+| `npm run astro ...`       | Ejecuta comandos CLI como `astro add`, `astro check`|
+| `npm run astro -- --help` | Busca ayuda usando el astro CLI                     |
 
-## 👀 Want to learn more?
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## 🧪 Tests
+
+La app incluye tests de extremo a extremo (E2E).
+
+### Ejecutar Tests E2E con Playwright
+
+
+Usa el siguiente comando para ejecutar todos los tests de Playwright:
+````
+npx playwright test
+````
+Opcional con UI:
+````
+npx playwright test --ui
+````
