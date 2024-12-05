@@ -90,7 +90,7 @@ const VolumeControl = () => {
 
 
   return (
-    <div className="group flex justify-center gap-x-2 flex-row-reverse pointer-events-none sm:flex-row sm:pointer-events-auto">
+    <div className="group flex justify-center gap-x-2 flex-row-reverse sm:flex-row">
       <button
         id="player-volume-button"
         onClick={handleClickVolume}
@@ -113,7 +113,7 @@ const VolumeControl = () => {
         max={100}
         min={0}
         value={[volume * 100]}
-        className="w-[95px] opacity-0 sm:opacity-100"
+        className="w-[95px] opacity-0 sm:opacity-100 pointer-events-none sm:pointer-events-auto"
         onValueChange={(value) => {
           const [newVolume] = value;
           const volumeValue = newVolume / 100;
