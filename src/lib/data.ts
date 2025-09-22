@@ -98,7 +98,7 @@ export const songs: Song[] = [
     "id": 1,
     "albumId": 1,
     "title": "Moonlit Walk",
-    "image": `https://f4.bcbits.com/img/a4099127608_16.jpg`,
+    "image": `https://i.ytimg.com/vi/n61ULEU7CO0/maxresdefault.jpg`,
     "artists": ["LoFi Dreamer"],
     "album": "Chill Lo-Fi Music",
     "duration": "2:57"
@@ -107,7 +107,7 @@ export const songs: Song[] = [
     "id": 2,
     "albumId": 1,
     "title": "Coffee Daze",
-    "image": `https://f4.bcbits.com/img/a4099127608_16.jpg`,
+    "image": `https://i.ytimg.com/vi/n61ULEU7CO0/maxresdefault.jpg`,
     "artists": ["LoFi Dreamer"],
     "album": "Chill Lo-Fi Music",
     "duration": "3:40"
@@ -116,7 +116,7 @@ export const songs: Song[] = [
     "id": 3,
     "albumId": 1,
     "title": "Skyline Serenade",
-    "image": `https://f4.bcbits.com/img/a4099127608_16.jpg`,
+    "image": `https://i.ytimg.com/vi/n61ULEU7CO0/maxresdefault.jpg`,
     "artists": ["LoFi Dreamer"],
     "album": "Chill Lo-Fi Music",
     "duration": "3:29"
@@ -125,7 +125,7 @@ export const songs: Song[] = [
     "id": 4,
     "albumId": 1,
     "title": "Urban Echoes",
-    "image": `https://f4.bcbits.com/img/a4099127608_16.jpg`,
+    "image": `https://i.ytimg.com/vi/n61ULEU7CO0/maxresdefault.jpg`,
     "artists": ["LoFi Dreamer"],
     "album": "Chill Lo-Fi Music",
     "duration": "2:11"
@@ -134,7 +134,7 @@ export const songs: Song[] = [
     "id": 5,
     "albumId": 1,
     "title": "Night's End",
-    "image": `https://f4.bcbits.com/img/a4099127608_16.jpg`,
+    "image": `https://i.ytimg.com/vi/n61ULEU7CO0/maxresdefault.jpg`,
     "artists": ["LoFi Dreamer"],
     "album": "Chill Lo-Fi Music",
     "duration": "2:26"
